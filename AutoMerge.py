@@ -16,12 +16,13 @@ data = []
 with open(LIST_CSV, newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
+        print(row)
         data.append({
-            'Student_Name': row.get('Student_Name', ''),
+            'Student_Name': row.get('Student Name', ''),
             'Rank': row.get('Rank', ''),
-            'Test_Date': row.get('Test_Date', ''),
-            'Instructor_Name': row.get('Instructor_Name', ''),
-            'Instructor_Rank': row.get('Instructor_Rank', '')
+            'Test_Date': row.get('Test Date', ''),
+            'Instructor_Name': row.get('Instructor Name', ''),
+            'Instructor_Rank': row.get('Instructor Rank', '')
         })
 
 with MailMerge(TEMPLATE_DOCUMENT) as document:
@@ -29,4 +30,4 @@ with MailMerge(TEMPLATE_DOCUMENT) as document:
     merged_docx_path = "./Output/MergedResult.docx"
     document.write(merged_docx_path)
 
-    
+
