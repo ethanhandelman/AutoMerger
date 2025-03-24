@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 from mailmerge import MailMerge
+from docx2pdf import convert
 import csv
 
 TEMPLATE_DOCUMENT = "./Input/CertTemplateW25.docx"
@@ -27,7 +28,14 @@ with open(LIST_CSV, newline='', encoding='utf-8') as csvfile:
 
 with MailMerge(TEMPLATE_DOCUMENT) as document:
     document.merge_pages(data)
-    merged_docx_path = "./Output/MergedResult.docx"
+    merged_docx_path = os.path.join(OUTPUT_FOLDER, "MergedResult.docx")
     document.write(merged_docx_path)
+
+merged_pdf_path = os.path.join(OUTPUT_FOLDER, "MergedResult.pdf")
+try:
+    convert(merged_docx_path, merged_pdf_path)
+    print("Merge complete")
+except Exception as e:
+    print("Error converting to PDF: ", e)
 
 
